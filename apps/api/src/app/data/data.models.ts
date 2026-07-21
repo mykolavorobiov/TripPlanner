@@ -1,10 +1,5 @@
 export type EntityName =
-  | 'tags'
-  | 'stops'
-  | 'hotels'
-  | 'map-points'
-  | 'routes'
-  | 'trips';
+  'tags' | 'stops' | 'hotels' | 'map-points' | 'routes' | 'trips';
 
 export type EntityConfiguration = {
   table: string;

@@ -61,6 +61,11 @@ Start the API at <http://localhost:3000/api>:
 npm run start:api
 ```
 
+Interactive Swagger documentation is available while the API is running at
+<http://localhost:3000/api/docs>. Use **Authorize** to provide an access-token
+bearer JWT when testing protected endpoints. Refresh endpoints use the
+HttpOnly refresh-token cookie set by the authentication endpoints.
+
 Run the localized frontend:
 
 ```bash
@@ -109,7 +114,7 @@ nx.json        Nx workspace configuration
 package.json   Shared dependencies and commands
 ```
 
-`SupabaseModule` exports a request-scoped `SupabaseClient` that API providers inject with the `SUPABASE_CLIENT` token. The frontend must not import the Supabase SDK or access Supabase directly. Authentication is proxied through `/api/auth/*`; authenticated entity CRUD is exposed through `/api/data/*`. The frontend stores the returned session locally and sends its access token to the API as a bearer token. Entity lists refresh through API polling.
+`SupabaseModule` exports a request-scoped `SupabaseClient` that API providers inject with the `SUPABASE_CLIENT` token. The frontend must not import the Supabase SDK or access Supabase directly. Authentication is proxied through `/api/auth/*`. Each feature has its own authenticated REST controller: `/api/hotels`, `/api/stops`, `/api/tags`, `/api/map-points`, `/api/routes`, and `/api/trips`. The frontend keeps the access token in memory and sends it to the API as a bearer token. The refresh token is stored only in an HttpOnly, SameSite cookie scoped to `/api/auth/refresh`; it is secure-only in production. Entity lists refresh through API polling.
 
 ## Current state
 
@@ -117,6 +122,7 @@ package.json   Shared dependencies and commands
 - Frontend development and production builds succeed.
 - API build succeeds.
 - API unit tests pass.
+- Swagger UI documents the API at `/api/docs`.
 - Supabase API configuration is loaded from environment variables.
 - Supabase SQL migrations, entities, authentication, and RLS policies are defined under `supabase/migrations`.
 - All browser-side data and authentication requests go through the Nest API.

@@ -5,7 +5,9 @@ import { EntityName, entityConfigurations } from './data.models';
 
 @Injectable()
 export class DataService {
-  constructor(@Inject(SUPABASE_CLIENT) private readonly supabase: SupabaseClient) {}
+  constructor(
+    @Inject(SUPABASE_CLIENT) private readonly supabase: SupabaseClient,
+  ) {}
 
   async list(entityValue: string) {
     const entity = this.entity(entityValue);
@@ -19,7 +21,11 @@ export class DataService {
     return data;
   }
 
-  async create(entityValue: string, body: Record<string, unknown>, userId: string) {
+  async create(
+    entityValue: string,
+    body: Record<string, unknown>,
+    userId: string,
+  ) {
     const entity = this.entity(entityValue);
     const config = entityConfigurations[entity];
     const tagIds = entity === 'stops' ? this.tagIds(body) : undefined;
@@ -32,7 +38,8 @@ export class DataService {
       .select()
       .single();
     if (error) throw error;
-    if (entity === 'stops' && tagIds?.length) await this.replaceStopTags(String(data.id), tagIds);
+    if (entity === 'stops' && tagIds?.length)
+      await this.replaceStopTags(String(data.id), tagIds);
     return data;
   }
 
@@ -47,7 +54,8 @@ export class DataService {
       .select()
       .single();
     if (error) throw error;
-    if (entity === 'stops' && tagIds !== undefined) await this.replaceStopTags(id, tagIds);
+    if (entity === 'stops' && tagIds !== undefined)
+      await this.replaceStopTags(id, tagIds);
     return data;
   }
 
@@ -62,22 +70,33 @@ export class DataService {
   }
 
   private entity(value: string): EntityName {
-    if (!(value in entityConfigurations)) throw new BadRequestException('Unknown entity');
+    if (!(value in entityConfigurations))
+      throw new BadRequestException('Unknown entity');
     return value as EntityName;
   }
 
   private tagIds(body: Record<string, unknown>): string[] | undefined {
     if (!('tag_ids' in body)) return undefined;
-    if (!Array.isArray(body.tag_ids)) throw new BadRequestException('tag_ids must be an array');
+    if (!Array.isArray(body.tag_ids))
+      throw new BadRequestException('tag_ids must be an array');
     return body.tag_ids.map(String);
   }
 
   private cleanBody(body: Record<string, unknown>): Record<string, unknown> {
-    const { tag_ids: _tagIds, created_by: _createdBy, created_at: _createdAt, updated_at: _updatedAt, ...clean } = body;
+    const {
+      tag_ids: _tagIds,
+      created_by: _createdBy,
+      created_at: _createdAt,
+      updated_at: _updatedAt,
+      ...clean
+    } = body;
     return clean;
   }
 
-  private async replaceStopTags(stopId: string, tagIds: string[]): Promise<void> {
+  private async replaceStopTags(
+    stopId: string,
+    tagIds: string[],
+  ): Promise<void> {
     const { error: deleteError } = await this.supabase
       .from('stop_tags')
       .delete()

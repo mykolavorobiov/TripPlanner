@@ -1,9 +1,4 @@
-import {
-  patchState,
-  signalStore,
-  withMethods,
-  withState
-} from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { inject } from '@angular/core';
 import { ApiClient } from '../../services/api-client.service';
 import type { Trip } from './trip.model';
@@ -26,7 +21,7 @@ export const TripStore = signalStore(
 
       try {
         // 2. Fetch data from your API
-        const data = await api.get<Trip[]>('data/trips');
+        const data = await api.get<Trip[]>('trips');
 
         // 3. Update the store with the incoming data
         patchState(store, { trips: data, isLoading: false });
@@ -64,6 +59,6 @@ export const TripStore = signalStore(
           isLoading: false,
         });
       }
-    }
-  }))
+    },
+  })),
 );
