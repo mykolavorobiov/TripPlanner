@@ -1,0 +1,75 @@
+<main class="page">
+  <mat-card class="card">
+    <mat-card-header class="header">
+      <mat-card-title i18n="@@app.title">Travel Checker</mat-card-title>
+      <mat-card-subtitle>
+        <img src="assets/logo.svg" alt="Travel Checker" i18n-alt="@@app.logoAlt" height="40">
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="content">
+      <form [formGroup]="form" (ngSubmit)="login()">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label i18n="@@auth.email">Email</mat-label>
+          <input matInput type="email" formControlName="email" autocomplete="email" />
+          <mat-icon matSuffix>mail</mat-icon>
+
+          @if (form.controls.email.hasError('required')) {
+            <mat-error i18n="@@auth.emailRequired">Email обов'язковий</mat-error>
+          }
+          @if (form.controls.email.hasError('email')) {
+            <mat-error i18n="@@auth.emailInvalid">Невірний формат email</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label i18n="@@auth.password">Пароль</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password"
+            autocomplete="current-password" />
+
+          <button mat-icon-button matSuffix type="button" (click)="hide = !hide"
+            [attr.aria-label]="hide ? 'Показати пароль' : 'Приховати пароль'"
+            i18n-aria-label="@@auth.passwordVisibility">
+            <mat-icon>{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+
+          @if (form.controls.password.hasError('required')) {
+            <mat-error i18n="@@auth.passwordRequired">Пароль обов'язковий</mat-error>
+          }
+          @if (form.controls.password.hasError('minlength')) {
+            <mat-error i18n="@@auth.passwordMinLength">Мінімум 6 символів</mat-error>
+          }
+        </mat-form-field>
+
+        @if (error) {
+          <div class="error">
+            <mat-icon>error_outline</mat-icon>
+            <span>{{ error }}</span>
+          </div>
+        }
+
+        <button mat-raised-button color="primary" class="full" type="submit" [disabled]="loading || form.invalid">
+          <mat-icon>login</mat-icon>
+          <span i18n="@@auth.login">Увійти</span>
+        </button>
+
+      </form>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions class="actions">
+      <span class="hint" i18n="@@auth.redirectHint">Після входу перенаправить на список зупинок</span>
+      <span class="login-language-switcher" aria-label="Вибір мови" i18n-aria-label="@@language.switcherLabel">
+        <a mat-button [class.active-language]="isLocale('uk')" [href]="localizedPath('uk')" hreflang="uk">UK</a>
+        <a mat-button [class.active-language]="isLocale('en')" [href]="localizedPath('en')" hreflang="en">EN</a>
+      </span>
+    </mat-card-actions>
+
+    @if (loading) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+  </mat-card>
+</main>

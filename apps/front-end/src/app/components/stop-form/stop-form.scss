@@ -1,0 +1,19 @@
+.event-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+mat-form-field {
+  width: 100%;
+}
+.tag-scroll {
+  width: 100%;
+  overflow: hidden;
+  overflow-x: auto;
+}
+.datetime-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

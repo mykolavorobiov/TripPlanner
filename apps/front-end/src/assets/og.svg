@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1220"/>
+      <stop offset="55%" stop-color="#0E2A47"/>
+      <stop offset="100%" stop-color="#0B3D6E"/>
+    </linearGradient>
+
+    <!-- Soft glow -->
+    <radialGradient id="glow" cx="70%" cy="20%" r="70%">
+      <stop offset="0%" stop-color="#42A5F5" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#42A5F5" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#42A5F5" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Card shadow -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+
+    <!-- Subtle noise (very light) -->
+    <filter id="noise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 0.06 0" />
+    </filter>
+
+    <!-- Map grid pattern -->
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1"/>
+      <path d="M24 0V48M0 24H48" fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+
+    <!-- Pin symbol -->
+    <g id="pin">
+      <path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 34 16 34s16-22 16-34C32 7.2 24.8 0 16 0z"
+            fill="#FFFFFF" fill-opacity="0.95"/>
+      <circle cx="16" cy="16" r="6.5" fill="#0B3D6E"/>
+    </g>
+
+    <!-- Small stop chip -->
+    <g id="chip">
+      <rect x="0" y="0" width="168" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.10"/>
+      <circle cx="24" cy="22" r="6" fill="#42A5F5"/>
+      <text x="42" y="28" font-family="Inter, Roboto, Arial, sans-serif" font-size="16" fill="#FFFFFF" fill-opacity="0.92">
+        Shared stops
+      </text>
+    </g>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" filter="url(#noise)" opacity="0.35"/>
+
+  <!-- Map area -->
+  <g opacity="1">
+    <rect x="0" y="0" width="1200" height="630" fill="url(#grid)"/>
+    <!-- Curvy route -->
+    <path d="M140 470 C 260 360, 360 520, 520 420 S 780 260, 960 340 S 1080 520, 1140 450"
+          fill="none" stroke="#FFFFFF" stroke-opacity="0.22" stroke-width="6"
+          stroke-linecap="round" stroke-dasharray="10 14"/>
+    <!-- Pins -->
+    <g transform="translate(160 410) scale(1.05)">
+      <use href="#pin"/>
+    </g>
+    <g transform="translate(510 360) scale(1.25)">
+      <use href="#pin"/>
+    </g>
+    <g transform="translate(900 290) scale(1.1)">
+      <use href="#pin"/>
+    </g>
+  </g>
+
+  <!-- Main card -->
+  <g filter="url(#shadow)">
+    <rect x="110" y="120" width="980" height="260" rx="28" fill="#0B1220" fill-opacity="0.62" stroke="#FFFFFF" stroke-opacity="0.12"/>
+
+    <!-- App mark (pin in a circle) -->
+    <g transform="translate(150 170)">
+      <circle cx="60" cy="60" r="60" fill="#42A5F5" fill-opacity="0.20"/>
+      <circle cx="60" cy="60" r="46" fill="#FFFFFF" fill-opacity="0.10"/>
+      <g transform="translate(44 32) scale(1.0)">
+        <use href="#pin"/>
+      </g>
+    </g>
+
+    <!-- Title -->
+    <text x="300" y="220"
+          font-family="Inter, Roboto, Arial, sans-serif"
+          font-size="72"
+          font-weight="700"
+          fill="#FFFFFF">
+      Travel Checker
+    </text>
+
+    <!-- Subtitle -->
+    <text x="300" y="276"
+          font-family="Inter, Roboto, Arial, sans-serif"
+          font-size="28"
+          fill="#FFFFFF"
+          fill-opacity="0.88">
+      Plan, share, and track travel stops with Supabase
+    </text>
+
+    <!-- Chips -->
+    <g transform="translate(300 305)">
+      <use href="#chip"/>
+    </g>
+    <g transform="translate(486 305)">
+      <rect x="0" y="0" width="192" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.10"/>
+      <circle cx="24" cy="22" r="6" fill="#66BB6A"/>
+      <text x="42" y="28" font-family="Inter, Roboto, Arial, sans-serif" font-size="16" fill="#FFFFFF" fill-opacity="0.92">
+        Supabase Auth
+      </text>
+    </g>
+    <g transform="translate(692 305)">
+      <rect x="0" y="0" width="188" height="44" rx="22" fill="#FFFFFF" fill-opacity="0.10"/>
+      <circle cx="24" cy="22" r="6" fill="#FFA726"/>
+      <text x="42" y="28" font-family="Inter, Roboto, Arial, sans-serif" font-size="16" fill="#FFFFFF" fill-opacity="0.92">
+        PostgreSQL
+      </text>
+    </g>
+  </g>
+
+  <!-- Footer -->
+  <text x="110" y="560" font-family="Inter, Roboto, Arial, sans-serif" font-size="18" fill="#FFFFFF" fill-opacity="0.60">
+    travel-checker • Angular + Material • Stops model • Shared collection
+  </text>
+</svg>

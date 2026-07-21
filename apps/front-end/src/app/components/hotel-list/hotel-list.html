@@ -1,0 +1,86 @@
+@if (hotels().length > 0) {
+<div class="hotels">
+  @for(hotel of hotels(); track hotel.id) {
+  <mat-card class="hotel-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{hotel.name}}</mat-card-title>
+      <mat-card-subtitle>
+        <div>{{hotel.where}}</div>
+        <div class="check-in-out">
+          <mat-chip>
+            <mat-icon>login</mat-icon>
+            {{ hotel.checkIn | date: 'MMMM d, y, HH:mm'}}
+          </mat-chip>
+          <mat-chip>
+            <mat-icon>logout</mat-icon>
+            {{ hotel.checkOut | date: 'MMMM d, y, HH:mm'}}
+          </mat-chip>
+        </div>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div class="image-container">
+      <a target="_blank" [href]="hotel.link">
+        <img
+          mat-card-image
+          [class.placeholder]="!hotel.imageSrc"
+          [src]="hotel.imageSrc || 'assets/hotel-placeholder.png'"
+          [alt]="hotel.name"
+        />
+      </a>
+    </div>
+
+    <mat-card-content>
+      <div class="links">
+        <div>
+          @if (hotel.mapLink) {
+          <a class="map-link" target="_blank" [href]="hotel.mapLink">
+            <img
+              src="assets/map-link.svg"
+              width="32"
+              height="32"
+              alt="Посилання на карту"
+              i18n-alt="@@hotels.mapLinkAlt" />
+          </a>
+          }
+        </div>
+
+        @if(hotel.stopId) {
+          <mat-icon>local_parking</mat-icon>
+        }
+        <div>
+          @if (hotel.link) {
+          <a target="_blank" [href]="hotel.link">
+            <img
+              src="assets/hotel-link.svg"
+              width="32"
+              height="32"
+              alt="Посилання на готель"
+              i18n-alt="@@hotels.hotelLinkAlt" />
+          </a>
+          } @else {---}
+        </div>
+      </div>
+      <p>{{ hotel.comment ?? '---'}}</p>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button matMiniFab (click)="remove(hotel)" aria-label="Видалити готель" i18n-aria-label="@@hotels.deleteHotel">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button matMiniFab extended (click)="edit(hotel)" aria-label="Редагувати готель" i18n-aria-label="@@hotels.editHotel">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>
+
+<button class="fixed-create-button" matMiniFab (click)="create()" aria-label="Додати готель" i18n-aria-label="@@hotels.addHotel">
+  <mat-icon>add</mat-icon>
+</button>
+} @else {
+<div class="empty-placeholder">
+  <button matButton="filled" (click)="create()">
+    <span i18n="@@common.add">Додати</span> <mat-icon>add</mat-icon>
+  </button>
+</div>
+}

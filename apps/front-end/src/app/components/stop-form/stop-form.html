@@ -1,0 +1,61 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title i18n="@@stops.formTitle">Зупинка</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="event-form" [formGroup]="eventGroup" (ngSubmit)="onSubmit()">
+      <div class="tag-scroll">
+        <span id="tab-label" i18n="@@tags.singleLabel">Мітка:</span>
+        <mat-radio-group aria-label="Обрати мітку" i18n-aria-label="@@tags.selectTag" formControlName="tagId">
+          @for (tag of tags(); track tag.id) {
+          <mat-radio-button [value]="tag.id">{{tag.name}}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.where">Де</mat-label>
+        <input matInput id="where" type="text" formControlName="where" />
+      </mat-form-field>
+      <div class="datetime-row">
+        <mat-form-field>
+          <mat-label i18n="@@common.date">Дата</mat-label>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="datetime" />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+
+          @if (eventGroup.controls.datetime.hasError('required')) {
+          <mat-error i18n="@@common.dateRequired">Вкажіть дату</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label i18n="@@common.time">Час</mat-label>
+          <input matInput type="time" [formControl]="time" />
+          @if (eventGroup.controls.time.hasError('required')) {
+          <mat-error i18n="@@common.timeRequired">Вкажіть час</mat-error>
+          }
+        </mat-form-field>
+      </div>
+      <mat-form-field>
+        <mat-label i18n="@@stops.goal">Мета</mat-label>
+        <input matInput id="goal" type="text" formControlName="goal" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label i18n="@@common.mapLink">Лінк на карту</mat-label>
+        <input matInput id="mapLink" type="text" formControlName="mapLink" />
+        <button matSuffix type="button" matMiniFab="filled" (click)="tryToGetGoogleLink()" aria-label="Заповнити посилання на карту поточною локацією" i18n-aria-label="@@common.useCurrentLocation">
+          <mat-icon aria-hidden="true" fontIcon="map"></mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label i18n="@@common.comment">Довільний коментар</mat-label>
+        <textarea matInput id="comment" formControlName="comment"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-dialog-actions>
+    <button [disabled]="eventGroup.invalid" type="button" (click)="onSubmit()" matButton="filled" i18n="@@common.save">Зберегти</button>
+    <button matButton type="button" mat-dialog-close i18n="@@common.cancel">Скасувати</button>
+  </mat-dialog-actions>
+</mat-card>

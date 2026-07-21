@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.active-language {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.nav-active mat-icon {
+  color: var(--mat-sys-primary, #1976d2);
+}
+
+.main-content {
+  padding: 12px;
+}

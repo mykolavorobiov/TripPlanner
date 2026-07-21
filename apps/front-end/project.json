@@ -1,0 +1,103 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "front-end",
+  "projectType": "application",
+  "sourceRoot": "apps/front-end/src",
+  "prefix": "app",
+  "i18n": {
+    "sourceLocale": {
+      "code": "uk",
+      "subPath": "uk"
+    },
+    "locales": {
+      "en-US": {
+        "translation": "apps/front-end/src/locale/messages.en.xlf",
+        "subPath": "en"
+      }
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "assets": ["apps/front-end/src/assets"],
+        "index": "apps/front-end/src/index.html",
+        "browser": "apps/front-end/src/main.ts",
+        "outputPath": "dist/apps/front-end",
+        "polyfills": ["@angular/localize/init"],
+        "i18nMissingTranslation": "error",
+        "styles": [
+          "apps/front-end/src/material-theme.scss",
+          "apps/front-end/src/global_styles.css",
+          "node_modules/leaflet/dist/leaflet.css"
+        ],
+        "tsConfig": "apps/front-end/tsconfig.app.json"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "namedChunks": true,
+          "optimization": false,
+          "sourceMap": true
+        },
+        "uk": {
+          "localize": ["uk"]
+        },
+        "en": {
+          "localize": ["en-US"]
+        },
+        "production": {
+          "extractLicenses": true,
+          "localize": true,
+          "namedChunks": false,
+          "optimization": {
+            "scripts": true,
+            "styles": true,
+            "fonts": false
+          },
+          "outputHashing": "all",
+          "sourceMap": false
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular/build:dev-server",
+      "configurations": {
+        "development": {
+          "buildTarget": "front-end:build:development"
+        },
+        "production": {
+          "buildTarget": "front-end:build:production"
+        },
+        "uk": {
+          "buildTarget": "front-end:build:development,uk"
+        },
+        "en": {
+          "buildTarget": "front-end:build:development,en"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "front-end:build",
+        "format": "xlf",
+        "outputPath": "apps/front-end/src/locale",
+        "outFile": "messages.xlf"
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/front-end/src/**/*.ts",
+          "apps/front-end/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

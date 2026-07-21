@@ -1,0 +1,76 @@
+:host {
+  .stop-main-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stop-list {
+    padding: 10px;
+    .when {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+  }
+
+  .stop-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  ::ng-deep {
+    .mat-mdc-tab-header {
+      margin-bottom: 12px;
+    }
+
+    .mat-mdc-tab-body-wrapper {
+      .mat-divider.mat-divider-horizontal {
+        margin: 12px 0;
+      }
+    }
+
+    .mat-mdc-card-actions {
+      gap: 12px;
+      padding: 0 12px;
+    }
+    .mat-expansion-panel-header {
+      --mat-expansion-header-expanded-state-height: auto;
+
+      
+
+      &.mat-expanded {
+        .mat-content {
+          flex-direction: column;
+          padding: 11px 0 10px;
+        }
+      }
+      .mat-content {
+        display: flex;
+        .mat-expansion-panel-header-title {
+          flex: 0 0 auto;
+        }
+      }
+
+      .mat-expansion-panel-header-description {
+
+        display: flex;
+        overflow: hidden;
+        flex-basis: auto;
+        gap: 8px;
+        mat-icon {
+          display: inline-block;
+        }
+
+        .goal {
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

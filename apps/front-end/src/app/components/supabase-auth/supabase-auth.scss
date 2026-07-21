@@ -1,0 +1,52 @@
+/* src/app/auth/auth.component.scss */
+
+.auth-page {
+  display: grid;
+  min-height: 100dvh;
+  padding: 24px;
+  place-items: center;
+}
+
+.auth-card {
+  width: min(100%, 420px);
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+}
+
+.mode-switcher {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  .active {
+    font-weight: 700;
+  }
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+}
+
+input,
+button {
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.validation-error,
+.error-message {
+  margin: -10px 0 0;
+  color: #b00020;
+}
+
+.info-message {
+  margin: 0;
+}

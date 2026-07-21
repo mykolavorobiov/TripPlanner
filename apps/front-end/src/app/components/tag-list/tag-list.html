@@ -1,0 +1,44 @@
+<mat-accordion>
+  <mat-expansion-panel #panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title i18n="@@tags.title">Мітки</mat-panel-title>
+      @if (!panel.expanded) {
+      <mat-panel-description>
+        @for (tag of tags(); track tag.id) {
+        <mat-chip disabled>{{tag.name}}</mat-chip>
+        }
+      </mat-panel-description>
+      }
+    </mat-expansion-panel-header>
+
+    <mat-form-field class="chip-field" appearance="fill">
+      <mat-chip-grid #chipGrid aria-label="Ввести мітки" i18n-aria-label="@@tags.enterTags">
+        @for (tag of tags(); track tag.id) {
+        <mat-chip-row (removed)="remove(tag)" [editable]="true" (edited)="edit(tag, $event)"
+          [aria-description]="editDescription(tag.name)">
+          <button matChipEdit [attr.aria-label]="editAriaLabel(tag.name)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          {{ tag.name }}
+
+          <button matChipRemove [attr.aria-label]="removeAriaLabel(tag.name)">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+      </mat-chip-grid>
+
+      <input placeholder="Додати..." i18n-placeholder="@@tags.addPlaceholder"
+        [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" [disabled]="loading()" />
+
+      @if (error()) {
+      <mat-hint class="error">{{ error() }}</mat-hint>
+      }
+      @else {
+      <mat-hint i18n="@@tags.inputHint">Enter/Comma — додати • Enter — зберегти редагування</mat-hint>
+      }
+    </mat-form-field>
+  </mat-expansion-panel>
+</mat-accordion>

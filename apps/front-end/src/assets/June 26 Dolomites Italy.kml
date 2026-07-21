@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://opengis.net">
+  <Document>
+    <name>Lviv to Dolomites EV Trip</name>
+    <description>Маршрут для електромобіля: Львів - Брно - Доломіти</description>
+    
+    <Placemark>
+      <name>Lviv (Start)</name>
+      <Point><coordinates>24.0311,49.8397,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Brno (Charging/Stopover)</name>
+      <Point><coordinates>16.6068,49.1951,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Tre Cime di Lavaredo</name>
+      <Point><coordinates>12.2977,46.6187,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Lago di Braies</name>
+      <Point><coordinates>12.0850,46.6943,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Cortina d'Ampezzo</name>
+      <Point><coordinates>12.1357,46.5405,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Ortisei (Val Gardena)</name>
+      <Point><coordinates>11.6751,46.5744,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Seceda</name>
+      <Point><coordinates>11.7249,46.5986,0</coordinates></Point>
+    </Placemark>
+    
+    <Placemark>
+      <name>Val di Funes (St. Magdalena)</name>
+      <Point><coordinates>11.7176,46.6444,0</coordinates></Point>
+    </Placemark>
+    
+  </Document>
+</kml>

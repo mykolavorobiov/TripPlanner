@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="uk" target-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="dialog.deleteTitle" datatype="html">
+        <source>Видалити</source>
+        <target>Delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/confirmation-dialog/confirmation-dialog.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dialog.confirmAction" datatype="html">
+        <source> Підтвердіть дію
+</source>
+        <target>Confirm action</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/confirmation-dialog/confirmation-dialog.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.cancel" datatype="html">
+        <source>Скасувати</source>
+        <target>Cancel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/confirmation-dialog/confirmation-dialog.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">122,123</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">101,102</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">150,151</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">644</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="dialog.confirm" datatype="html">
+        <source>Підтверджую</source>
+        <target>Confirm</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/confirmation-dialog/confirmation-dialog.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.formTitle" datatype="html">
+        <source>Готель</source>
+        <target>Hotel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.singleLabel" datatype="html">
+        <source>Мітка:</source>
+        <target>Tag:</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.selectTag" datatype="html">
+        <source>Обрати мітку</source>
+        <target>Select tag</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.name" datatype="html">
+        <source>Назва</source>
+        <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.where" datatype="html">
+        <source>Де</source>
+        <target>Where</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkInDate" datatype="html">
+        <source>Заселення — дата</source>
+        <target>Check-in ? date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">28,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkInDateRequired" datatype="html">
+        <source>Вкажіть дату заселення</source>
+        <target>Enter the check-in date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkInTime" datatype="html">
+        <source>Заселення — час</source>
+        <target>Check-in ? time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkInTimeRequired" datatype="html">
+        <source>Вкажіть час заселення</source>
+        <target>Enter the check-in time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkOutDate" datatype="html">
+        <source>Виселення — дата</source>
+        <target>Check-out ? date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">57,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkOutDateRequired" datatype="html">
+        <source>Вкажіть дату виселення</source>
+        <target>Enter the check-out date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">70,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkOutTime" datatype="html">
+        <source>Виселення — час</source>
+        <target>Check-out ? time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">75,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.checkOutTimeRequired" datatype="html">
+        <source>Вкажіть час виселення</source>
+        <target>Enter the check-out time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">79,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.link" datatype="html">
+        <source>Посилання</source>
+        <target>Link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.mapLink" datatype="html">
+        <source>Лінк на карту</source>
+        <target>Map link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">91,92</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.useCurrentLocation" datatype="html">
+        <source>Заповнити посилання на карту поточною локацією</source>
+        <target>Fill the map link with the current location</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.comment" datatype="html">
+        <source>Довільний коментар</source>
+        <target>Optional comment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.formTitle" datatype="html">
+        <source>Зупинка</source>
+        <target>Stop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">110,111</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.save" datatype="html">
+        <source>Зберегти</source>
+        <target>Save</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-form/hotel-form.html</context>
+          <context context-type="linenumber">121,122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">100,101</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">149,150</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.mapLinkAlt" datatype="html">
+        <source>Посилання на карту</source>
+        <target>Map link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.hotelLinkAlt" datatype="html">
+        <source>Посилання на готель</source>
+        <target>Hotel link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.deleteHotel" datatype="html">
+        <source>Видалити готель</source>
+        <target>Delete hotel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.editHotel" datatype="html">
+        <source>Редагувати готель</source>
+        <target>Edit hotel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hotels.addHotel" datatype="html">
+        <source>Додати готель</source>
+        <target>Add hotel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.add" datatype="html">
+        <source>Додати</source>
+        <target>Add</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/hotel-list/hotel-list.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="app.title" datatype="html">
+        <source>Travel Checker</source>
+        <target>Travel Checker</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="app.logoAlt" datatype="html">
+        <source>Travel Checker</source>
+        <target>Travel Checker</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/main.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.email" datatype="html">
+        <source>Email</source>
+        <target>Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailRequired" datatype="html">
+        <source>Email обов&apos;язковий</source>
+        <target>Email is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">20,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailInvalid" datatype="html">
+        <source>Невірний формат email</source>
+        <target>Invalid email format</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.password" datatype="html">
+        <source>Пароль</source>
+        <target>Password</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.passwordRequired" datatype="html">
+        <source>Пароль обов&apos;язковий</source>
+        <target>Password is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">39,41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.passwordMinLength" datatype="html">
+        <source>Мінімум 6 символів</source>
+        <target>Minimum 6 characters</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">42,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.login" datatype="html">
+        <source>Увійти</source>
+        <target>Sign in</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.redirectHint" datatype="html">
+        <source>Після входу перенаправить на список зупинок</source>
+        <target>After sign-in, you will be redirected to the stops list</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">63,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="language.switcherLabel" datatype="html">
+        <source>Вибір мови</source>
+        <target>Language selection</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.html</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/main.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.errorPrefix" datatype="html">
+        <source>Помилка: <x id="errorCode" equiv-text="err.code"/></source>
+        <target>Error: <x id="errorCode" equiv-text="err.code"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/login/login.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tabs.stops" datatype="html">
+        <source>Зупинки</source>
+        <target>Stops</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-list/main-list.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tabs.hotels" datatype="html">
+        <source>Проживання</source>
+        <target>Accommodation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-list/main-list.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tabs.locations" datatype="html">
+        <source>Локації</source>
+        <target>Locations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-list/main-list.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tabs.locationsUnavailable" datatype="html">
+        <source>Не доступно</source>
+        <target>Not available</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/main-list/main-list.html</context>
+          <context context-type="linenumber">11,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.searchTitle" datatype="html">
+        <source>Пошук</source>
+        <target>Search</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.address" datatype="html">
+        <source>Адреса</source>
+        <target>Address</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.searchPlaceholder" datatype="html">
+        <source>Шукати адресу...</source>
+        <target>Search address...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.clear" datatype="html">
+        <source>Очистити</source>
+        <target>Clear</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">243,246</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.searchTooltip" datatype="html">
+        <source>Пошук</source>
+        <target>Search</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.poiTitle" datatype="html">
+        <source>Цікаві місця</source>
+        <target>Points of interest</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">48,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.fitAllPoints" datatype="html">
+        <source>Показати всі точки</source>
+        <target>Fit all points</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.importKml" datatype="html">
+        <source>Імпортувати з KML</source>
+        <target>Import from KML</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.clickToPlacePoint" datatype="html">
+        <source>Натисніть будь-де на карті, щоб поставити точку</source>
+        <target>Click anywhere on the map to place a point</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">79,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.label" datatype="html">
+        <source>Назва</source>
+        <target>Label</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">82,83</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">113,114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.placeNamePlaceholder" datatype="html">
+        <source>Назва місця</source>
+        <target>Place name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.color" datatype="html">
+        <source>Колір</source>
+        <target>Color</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">92,93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">140,141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.randomColor" datatype="html">
+        <source>Випадковий колір</source>
+        <target>Randomize color</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">141</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.clickToReposition" datatype="html">
+        <source>Натисніть будь-де на карті, щоб встановити нову позицію</source>
+        <target>Click anywhere on the map to set the new position</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">135,138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.addToRoute" datatype="html">
+        <source>Додати до маршруту</source>
+        <target>Add to route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">158,159</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">684</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.edit" datatype="html">
+        <source>Редагувати</source>
+        <target>Edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.delete" datatype="html">
+        <source>Видалити</source>
+        <target>Delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">685</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.noPoi" datatype="html">
+        <source>Власних точок поки немає.</source>
+        <target>No custom POIs yet.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">174,176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.routesTitle" datatype="html">
+        <source>Маршрути</source>
+        <target>Routes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">183,184</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.newRoute" datatype="html">
+        <source>Новий маршрут</source>
+        <target>New route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.deleteRoute" datatype="html">
+        <source>Видалити</source>
+        <target>Delete</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.avoidTolls" datatype="html">
+        <source> Уникати платних доріг </source>
+        <target>Avoid toll roads</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">215,216</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.removeWaypoint" datatype="html">
+        <source>Видалити точку маршруту</source>
+        <target>Remove waypoint</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">226</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.addTwoPoints" datatype="html">
+        <source>Додайте щонайменше 2 точки, щоб побудувати маршрут.</source>
+        <target>Add at least 2 points to build a route.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">232,234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.calculate" datatype="html">
+        <source> Розрахувати </source>
+        <target>Calculate</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">241,242</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.closePanel" datatype="html">
+        <source>Закрити панель</source>
+        <target>Close panel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.html</context>
+          <context context-type="linenumber">270</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.durationHoursMinutes" datatype="html">
+        <source><x id="hours" equiv-text="h"/> год <x id="minutes" equiv-text="m"/> хв</source>
+        <target><x id="hours" equiv-text="h"/>h <x id="minutes" equiv-text="m"/>m</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">254</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.durationMinutes" datatype="html">
+        <source><x id="minutes" equiv-text="m"/> хв</source>
+        <target><x id="minutes" equiv-text="m"/>m</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">255</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.noSearchResults" datatype="html">
+        <source>Нічого не знайдено</source>
+        <target>No results found</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">357</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.ok" datatype="html">
+        <source>OK</source>
+        <target>OK</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">357</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">359</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">570</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">573</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">620</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">627</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">630</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.searchFailed" datatype="html">
+        <source>Пошук не вдався</source>
+        <target>Search failed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">359</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.defaultRouteName" datatype="html">
+        <source>Маршрут <x id="routeNumber" equiv-text="index + 1"/></source>
+        <target>Route <x id="routeNumber" equiv-text="index + 1"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">487</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.routeCalculationFailed" datatype="html">
+        <source>Не вдалося розрахувати маршрут</source>
+        <target>Route calculation failed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">570</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.routeCalculationError" datatype="html">
+        <source>Помилка розрахунку маршруту</source>
+        <target>Failed to calculate route</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">573</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.unnamed" datatype="html">
+        <source>Без назви</source>
+        <target>Unnamed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">598</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.allPointsImported" datatype="html">
+        <source>Усі точки вже імпортовано</source>
+        <target>All points are already imported</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">620</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.importedPoints" datatype="html">
+        <source>Імпортовано точок: <x id="pointsCount" equiv-text="toImport.length"/></source>
+        <target>Imported points: <x id="pointsCount" equiv-text="toImport.length"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">626</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.kmlImportFailed" datatype="html">
+        <source>Не вдалося імпортувати KML</source>
+        <target>KML import failed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">630</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.addPoiTooltip" datatype="html">
+        <source>Додати точку (натисніть на карту)</source>
+        <target>Add POI (click map)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">645</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.cancelReposition" datatype="html">
+        <source>Скасувати переміщення</source>
+        <target>Cancel reposition</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">650</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.clickMapToReposition" datatype="html">
+        <source>Натисніть на карту, щоб перемістити</source>
+        <target>Click map to reposition</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">651</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.hidePanel" datatype="html">
+        <source>Сховати панель</source>
+        <target>Hide panel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">656</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.showPanel" datatype="html">
+        <source>Показати панель</source>
+        <target>Show panel</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/map-view/map-view.ts</context>
+          <context context-type="linenumber">657</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.date" datatype="html">
+        <source>Дата</source>
+        <target>Date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.dateRequired" datatype="html">
+        <source>Вкажіть дату</source>
+        <target>Enter a date</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">28,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.time" datatype="html">
+        <source>Час</source>
+        <target>Time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.timeRequired" datatype="html">
+        <source>Вкажіть час</source>
+        <target>Enter a time</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">36,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.goal" datatype="html">
+        <source>Мета</source>
+        <target>Goal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-form/stop-form.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.addStop" datatype="html">
+        <source>Додати зупинку</source>
+        <target>Add stop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.showAll" datatype="html">
+        <source>Показати всі</source>
+        <target>Show all</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.collapseAll" datatype="html">
+        <source>Згорнути всі</source>
+        <target>Collapse all</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">5,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.mapLink" datatype="html">
+        <source>Посилання на карту</source>
+        <target>Map link</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.deleteStop" datatype="html">
+        <source>Видалити зупинку</source>
+        <target>Delete stop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stops.editStop" datatype="html">
+        <source>Редагувати зупинку</source>
+        <target>Edit stop</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.noComment" datatype="html">
+        <source>Без коментаря</source>
+        <target>No comment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/stop-list/stop-list.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.title" datatype="html">
+        <source>Мітки</source>
+        <target>Tags</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.enterTags" datatype="html">
+        <source>Ввести мітки</source>
+        <target>Enter tags</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.addPlaceholder" datatype="html">
+        <source>Додати...</source>
+        <target>Add...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.inputHint" datatype="html">
+        <source>Enter/Comma — додати • Enter — зберегти редагування</source>
+        <target>Enter/Comma ? add ? Enter ? save edit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.html</context>
+          <context context-type="linenumber">40,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.errorPrefix" datatype="html">
+        <source>Помилка: <x id="errorCode" equiv-text="err.code"/></source>
+        <target>Error: <x id="errorCode" equiv-text="err.code"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.editDescription" datatype="html">
+        <source>Натисніть Enter, щоб редагувати <x id="tagName" equiv-text="tagName"/></source>
+        <target>Press Enter to edit <x id="tagName" equiv-text="tagName"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.editAria" datatype="html">
+        <source>Редагувати <x id="tagName" equiv-text="tagName"/></source>
+        <target>Edit <x id="tagName" equiv-text="tagName"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="tags.removeAria" datatype="html">
+        <source>Видалити <x id="tagName" equiv-text="tagName"/></source>
+        <target>Remove <x id="tagName" equiv-text="tagName"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/tag-list/tag-list.ts</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.listTooltip" datatype="html">
+        <source>Список</source>
+        <target>List</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/main.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.mapTooltip" datatype="html">
+        <source>Карта</source>
+        <target>Map</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/main.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.logout" datatype="html">
+        <source>Вийти</source>
+        <target>Sign out</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/main.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "API: Debug",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run start:api",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Front-end: Debug",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}/apps/front-end/src",
+      "sourceMaps": true,
+      "preLaunchTask": "serve front-end"
+    },
+    {
+      "name": "Front-end: Attach",
+      "type": "pwa-chrome",
+      "request": "attach",
+      "urlFilter": "http://localhost:4200/*",
+      "webRoot": "${workspaceFolder}/apps/front-end/src",
+      "sourceMaps": true,
+      "port": 9222
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full stack: Debug",
+      "configurations": [
+        "API: Debug",
+        "Front-end: Debug"
+      ],
+      "stopAll": true
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title i18n="@@hotels.formTitle">Готель</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="hotel-form" [formGroup]="hotelGroup" (ngSubmit)="onSubmit()">
+      <div class="tag-scroll">
+        <span id="tab-label" i18n="@@tags.singleLabel">Мітка:</span>
+        <mat-radio-group aria-label="Обрати мітку" i18n-aria-label="@@tags.selectTag" formControlName="tagId">
+          @for (tag of tags(); track tag.id) {
+          <mat-radio-button [value]="tag.id">{{tag.name}}</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.name">Назва</mat-label>
+        <input matInput id="name" type="text" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.where">Де</mat-label>
+        <input matInput id="where" type="text" formControlName="where" />
+      </mat-form-field>
+      <form [formGroup]="checkInOutForm">
+        <div class="datetime-row" formGroupName="checkIn">
+          <mat-form-field>
+            <mat-label i18n="@@hotels.checkInDate">Заселення — дата</mat-label>
+            <input
+              matInput
+              [matDatepicker]="checkInPicker"
+              [min]="minDate"
+              [max]="maxDate"
+              formControlName="date" />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="checkInPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkInPicker touchUi></mat-datepicker>
+
+            @if (checkInOutForm.get('checkIn.date')?.hasError('required')) {
+            <mat-error i18n="@@hotels.checkInDateRequired">Вкажіть дату заселення</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label i18n="@@hotels.checkInTime">Заселення — час</mat-label>
+            <input matInput type="time" formControlName="time" />
+
+            @if (checkInOutForm.get('checkIn.time')?.hasError('required')) {
+            <mat-error i18n="@@hotels.checkInTimeRequired">Вкажіть час заселення</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="datetime-row" formGroupName="checkOut">
+          <mat-form-field>
+            <mat-label i18n="@@hotels.checkOutDate">Виселення — дата</mat-label>
+            <input
+              matInput
+              [matDatepicker]="checkOutPicker"
+              [min]="minDate"
+              [max]="maxDate"
+              formControlName="date" />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="checkOutPicker"></mat-datepicker-toggle>
+            <mat-datepicker #checkOutPicker touchUi></mat-datepicker>
+
+            @if (checkInOutForm.get('checkOut.date')?.hasError('required')) {
+            <mat-error i18n="@@hotels.checkOutDateRequired">Вкажіть дату виселення</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label i18n="@@hotels.checkOutTime">Виселення — час</mat-label>
+            <input matInput type="time" formControlName="time" />
+
+            @if (checkInOutForm.get('checkOut.time')?.hasError('required')) {
+            <mat-error i18n="@@hotels.checkOutTimeRequired">Вкажіть час виселення</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </form>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.link">Посилання</mat-label>
+        <input matInput id="link" type="text" formControlName="link" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.mapLink">Лінк на карту</mat-label>
+        <input matInput id="mapLink" type="text" formControlName="mapLink" />
+        <button
+          matSuffix
+          type="button"
+          matMiniFab="filled"
+          (click)="tryToGetGoogleLink()"
+          aria-label="Заповнити посилання на карту поточною локацією"
+          i18n-aria-label="@@common.useCurrentLocation">
+          <mat-icon aria-hidden="true" fontIcon="map"></mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label i18n="@@common.comment">Довільний коментар</mat-label>
+        <textarea matInput id="comment" formControlName="comment"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label i18n="@@stops.formTitle">Зупинка</mat-label>
+        <select matNativeControl id="mySelectId" formControlName="stopId">
+          <option value="" disabled selected></option>
+          @for (stop of stops(); track $index) {
+          <option [value]="stop.id">{{stop.where}}</option>
+          }
+        </select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-dialog-actions>
+    <button [disabled]="hotelGroup.invalid" type="button" (click)="onSubmit()" matButton="filled" i18n="@@common.save">Зберегти</button>
+    <button matButton type="button" mat-dialog-close i18n="@@common.cancel">Скасувати</button>
+  </mat-dialog-actions>
+</mat-card>

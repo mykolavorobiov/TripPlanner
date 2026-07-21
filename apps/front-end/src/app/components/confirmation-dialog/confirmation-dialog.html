@@ -1,0 +1,8 @@
+<h2 mat-dialog-title i18n="@@dialog.deleteTitle">Видалити</h2>
+<mat-dialog-content i18n="@@dialog.confirmAction">
+  Підтвердіть дію
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton="filled" [mat-dialog-close]="false" cdkFocusInitial i18n="@@common.cancel">Скасувати</button>
+  <button matButton color="warn" [mat-dialog-close]="true" i18n="@@dialog.confirm">Підтверджую</button>
+</mat-dialog-actions>

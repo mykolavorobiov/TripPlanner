@@ -1,0 +1,274 @@
+<div class="mv-container" [class.mv-no-panel]="!sidebarOpen()">
+  <aside class="mv-sidebar" [class.mv-sidebar--closed]="!sidebarOpen()">
+    <div class="mv-sidebar-inner">
+
+      <section class="mv-section">
+        <div class="mv-section-header">
+          <h3 i18n="@@map.searchTitle">Пошук</h3>
+          @if (searchLoading()) { <mat-spinner diameter="18" /> }
+        </div>
+
+        <div class="mv-search-wrap">
+          <mat-form-field appearance="outline" class="mv-full-width">
+            <mat-label i18n="@@map.address">Адреса</mat-label>
+            <input matInput
+              [ngModel]="searchQuery()"
+              (ngModelChange)="searchQuery.set($event)"
+              (keydown.enter)="searchAddress()"
+              placeholder="Шукати адресу..."
+              i18n-placeholder="@@map.searchPlaceholder" />
+            @if (searchQuery()) {
+              <button matSuffix mat-icon-button matTooltip="Очистити" i18n-matTooltip="@@common.clear" (click)="clearSearch()">
+                <mat-icon>close</mat-icon>
+              </button>
+            } @else {
+              <button matSuffix mat-icon-button matTooltip="Пошук" i18n-matTooltip="@@map.searchTooltip" (click)="searchAddress()"
+                [disabled]="!searchQuery().trim()">
+                <mat-icon>search</mat-icon>
+              </button>
+            }
+          </mat-form-field>
+
+          @if (searchResults().length > 0) {
+            <div class="mv-search-results">
+              @for (r of searchResults(); track r.place_id) {
+                <button class="mv-search-result" (click)="selectSearchResult(r)">
+                  {{ r.display_name }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </section>
+
+      <mat-divider />
+
+      <section class="mv-section">
+        <div class="mv-section-header">
+          <h3 i18n="@@map.poiTitle">Цікаві місця</h3>
+          <div class="mv-header-actions">
+            <button mat-icon-button matTooltip="Показати всі точки"
+              i18n-matTooltip="@@map.fitAllPoints"
+              [disabled]="!hasPoints()"
+              (click)="fitAllPoints()">
+              <mat-icon>fit_screen</mat-icon>
+            </button>
+            <button mat-icon-button
+              matTooltip="Імпортувати з KML"
+              i18n-matTooltip="@@map.importKml"
+              [disabled]="kmlImporting()"
+              (click)="importKml()">
+              @if (kmlImporting()) {
+                <mat-spinner diameter="18" />
+              } @else {
+                <mat-icon>upload_file</mat-icon>
+              }
+            </button>
+            <button mat-icon-button
+              [color]="addMode() ? 'warn' : 'primary'"
+              [matTooltip]="addModeTooltip()"
+              (click)="toggleAddMode()">
+              <mat-icon>{{ addMode() ? 'close' : 'add_location' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        @if (addMode()) {
+          <div class="mv-hint">
+            @if (!pendingLatLng()) {
+              <span i18n="@@map.clickToPlacePoint">Натисніть будь-де на карті, щоб поставити точку</span>
+            } @else {
+              <mat-form-field appearance="outline" class="mv-full-width">
+                <mat-label i18n="@@map.label">Назва</mat-label>
+                <input matInput
+                  [ngModel]="pendingLabel()"
+                  (ngModelChange)="pendingLabel.set($event)"
+                  (keydown.enter)="savePoi()"
+                  placeholder="Назва місця"
+                  i18n-placeholder="@@map.placeNamePlaceholder" />
+              </mat-form-field>
+              <div class="mv-color-row">
+                <span class="mv-color-preview" [style.background]="pendingColor()"></span>
+                <span class="mv-color-label" i18n="@@map.color">Колір</span>
+                <button mat-icon-button matTooltip="Випадковий колір" i18n-matTooltip="@@map.randomColor" (click)="randomizePendingColor()">
+                  <mat-icon>casino</mat-icon>
+                </button>
+              </div>
+              <div class="mv-row-actions">
+                <button mat-flat-button color="primary"
+                  [disabled]="!canSavePoi()"
+                  (click)="savePoi()" i18n="@@common.save">Зберегти</button>
+                <button mat-button (click)="cancelPending()" i18n="@@common.cancel">Скасувати</button>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mv-item-list">
+          @for (point of mapPoints(); track point.id) {
+
+            @if (editingPoint()?.id === point.id) {
+              <div class="mv-edit-form">
+                <mat-form-field appearance="outline" class="mv-full-width">
+                  <mat-label i18n="@@map.label">Назва</mat-label>
+                  <input matInput
+                    [ngModel]="editLabel()"
+                    (ngModelChange)="editLabel.set($event)"
+                    (keydown.enter)="saveEdit()"
+                    (keydown.escape)="cancelEdit()" />
+                </mat-form-field>
+
+                <div class="mv-coords-row">
+                  <span class="mv-coords-text">
+                    {{ editLatLng()?.lat?.toFixed(5) }},
+                    {{ editLatLng()?.lng?.toFixed(5) }}
+                  </span>
+                  <button mat-icon-button
+                    [color]="editReposition() ? 'warn' : undefined"
+                    [matTooltip]="editRepositionTooltip()"
+                    (click)="toggleEditReposition()">
+                    <mat-icon>{{ editReposition() ? 'close' : 'my_location' }}</mat-icon>
+                  </button>
+                </div>
+
+                @if (editReposition()) {
+                  <p class="mv-hint" i18n="@@map.clickToReposition">Натисніть будь-де на карті, щоб встановити нову позицію</p>
+                }
+
+                <div class="mv-color-row">
+                  <span class="mv-color-preview" [style.background]="editColor()"></span>
+                  <span class="mv-color-label" i18n="@@map.color">Колір</span>
+                  <button mat-icon-button matTooltip="Випадковий колір" i18n-matTooltip="@@map.randomColor" (click)="randomizeEditColor()">
+                    <mat-icon>casino</mat-icon>
+                  </button>
+                </div>
+
+                <div class="mv-row-actions">
+                  <button mat-flat-button color="primary"
+                    [disabled]="!canSaveEdit()"
+                    (click)="saveEdit()" i18n="@@common.save">Зберегти</button>
+                  <button mat-button (click)="cancelEdit()" i18n="@@common.cancel">Скасувати</button>
+                </div>
+              </div>
+
+            } @else {
+              <div class="mv-item">
+                <span class="mv-dot" [style.background]="point.color ?? '#f57c00'"></span>
+                <span class="mv-item-label">{{ point.label }}</span>
+                <button mat-icon-button matTooltip="Додати до маршруту"
+                  i18n-matTooltip="@@map.addToRoute"
+                  (click)="addWaypoint({ lat: point.lat, lng: point.lng, label: point.label })">
+                  <mat-icon>alt_route</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Редагувати" i18n-matTooltip="@@common.edit" (click)="startEdit(point)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Видалити" i18n-matTooltip="@@common.delete" (click)="deleteMapPoint(point)">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </div>
+            }
+
+          }
+          @if (noMapPoints()) {
+            <p class="mv-empty" i18n="@@map.noPoi">Власних точок поки немає.</p>
+          }
+        </div>
+      </section>
+
+      <mat-divider />
+
+      <section class="mv-section">
+        <div class="mv-section-header">
+          <h3 i18n="@@map.routesTitle">Маршрути</h3>
+          @if (routeLoading()) { <mat-spinner diameter="18" /> }
+        </div>
+
+        <div class="mv-route-tabs">
+          @for (route of routes(); track route.id) {
+            <button class="mv-route-tab"
+              [class.mv-route-tab--active]="route.id === activeRouteId()"
+              (click)="setActiveRoute(route.id)">
+              <span class="mv-route-tab-dot" [style.background]="route.color"></span>
+              {{ route.name }}
+            </button>
+          }
+          <button mat-icon-button matTooltip="Новий маршрут" i18n-matTooltip="@@map.newRoute" (click)="addRoute()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+
+        @if (canDeleteRoute()) {
+          <button mat-button color="warn" class="mv-route-delete-btn"
+            (click)="removeRoute(activeRouteId())">
+            <mat-icon>delete_outline</mat-icon>
+            <ng-container i18n="@@map.deleteRoute">Видалити</ng-container> {{ activeRoute().name }}
+          </button>
+        }
+
+        <mat-divider style="margin: 8px 0" />
+
+        <mat-checkbox class="mv-option-check"
+          [checked]="activeRoute().options.avoidTolls"
+          (change)="toggleAvoidTolls($event.checked)"
+          i18n="@@map.avoidTolls">
+          Уникати платних доріг
+        </mat-checkbox>
+
+        <div class="mv-item-list"
+          cdkDropList
+          (cdkDropListDropped)="reorderWaypoints($event)">
+          @for (wp of waypoints(); track $index; let i = $index) {
+            <div class="mv-item" cdkDrag>
+              <mat-icon cdkDragHandle class="mv-drag-handle">drag_indicator</mat-icon>
+              <span class="mv-waypoint-num" [style.background]="activeRoute().color">{{ i + 1 }}</span>
+              <span class="mv-item-label">{{ wp.label }}</span>
+              <button mat-icon-button (click)="removeWaypoint(i)" aria-label="Видалити точку маршруту" i18n-aria-label="@@map.removeWaypoint">
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+            </div>
+          }
+          @if (!hasWaypoints()) {
+            <p class="mv-empty" i18n="@@map.addTwoPoints">Додайте щонайменше 2 точки, щоб побудувати маршрут.</p>
+          }
+        </div>
+
+        <div class="mv-row-actions">
+          <button mat-flat-button color="primary"
+            [disabled]="!canCalculateRoute()"
+            (click)="calculateRoute()"
+            i18n="@@map.calculate">
+            Розрахувати
+          </button>
+          <button mat-button [disabled]="!hasWaypoints()" (click)="clearRoute()" i18n="@@common.clear">Очистити</button>
+        </div>
+
+        @if (activeRoute().info) {
+          <div class="mv-route-info" [style.border-color]="activeRoute().color">
+            <span class="mv-route-stat" [style.color]="activeRoute().color">
+              <mat-icon>straighten</mat-icon>
+              {{ routeDistance() }}
+            </span>
+            <span class="mv-route-stat" [style.color]="activeRoute().color">
+              <mat-icon>schedule</mat-icon>
+              {{ routeDuration() }}
+            </span>
+          </div>
+        }
+      </section>
+
+    </div>
+
+    <button class="mv-panel-toggle" mat-icon-button
+      [matTooltip]="sidebarTooltip()"
+      (click)="toggleSidebar()">
+      <mat-icon>{{ sidebarOpen() ? 'keyboard_double_arrow_left' : 'keyboard_double_arrow_right' }}</mat-icon>
+    </button>
+  </aside>
+
+  @if (sidebarOpen()) {
+    <button type="button" class="mv-sidebar-backdrop" (click)="toggleSidebar()" aria-label="Закрити панель" i18n-aria-label="@@map.closePanel"></button>
+  }
+
+  <div id="leaflet-map" class="mv-map"></div>
+</div>

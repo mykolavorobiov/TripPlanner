@@ -1,0 +1,47 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <linearGradient id="card" x1="260" y1="120" x2="940" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="160" cy="120" r="56" fill="#FDE68A" opacity="0.9"/>
+
+  <rect x="0" y="620" width="1200" height="180" fill="#128348"/>
+  <rect x="0" y="670" width="1200" height="130" fill="#0a5d18"/>
+
+  <rect x="260" y="140" width="680" height="500" rx="28" fill="url(#card)" stroke="#CBD5E1" stroke-width="4"/>
+
+  <rect x="330" y="220" width="540" height="300" rx="12" fill="#BFDBFE" stroke="#93C5FD" stroke-width="3"/>
+
+  <rect x="390" y="180" width="420" height="55" rx="10" fill="#1E3A8A"/>
+  <text x="600" y="216" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" fill="white">HOTEL</text>
+
+  <rect x="560" y="390" width="80" height="130" rx="6" fill="#334155"/>
+  <circle cx="625" cy="455" r="4" fill="#E2E8F0"/>
+
+  <rect x="365" y="255" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="465" y="255" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="665" y="255" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="765" y="255" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+
+  <rect x="365" y="345" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="465" y="345" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="665" y="345" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="765" y="345" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+
+  <rect x="365" y="435" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="465" y="435" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="665" y="435" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+  <rect x="765" y="435" width="70" height="70" rx="8" fill="#EFF6FF" stroke="#93C5FD"/>
+
+  <rect x="160" y="540" width="130" height="18" rx="9" fill="#2253c5"/>
+  <rect x="930" y="560" width="150" height="18" rx="9" fill="#2263c5"/>
+
+</svg>

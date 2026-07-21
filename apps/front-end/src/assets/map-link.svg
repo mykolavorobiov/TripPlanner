@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+
+<g id="pin">
+  <animateTransform attributeName="transform" type="translate"
+    values="0 0;0 -8;0 -8;0 -8;0 0"
+    keyTimes="0;0.4;0.5;0.6;1"
+    dur="1.6s"
+    repeatCount="indefinite"/>
+
+  <animateTransform attributeName="transform" additive="sum" type="rotate"
+    values="0 64 55;8 64 55;-8 64 55;0 64 55"
+    keyTimes="0.4;0.5;0.6;0.7"
+    dur="1.6s"
+    repeatCount="indefinite"/>
+
+  <path d="M64 92C64 92 90 67.5 90 49C90 34.6406 78.3594 23 64 23C49.6406 23 38 34.6406 38 49C38 67.5 64 92 64 92Z"
+        fill="#EF4444"/>
+  <circle cx="64" cy="49" r="10" fill="white"/>
+</g>
+
+<ellipse cx="64" cy="98" rx="18" ry="6" fill="#94A3B8" opacity="0.35">
+  <animate attributeName="rx" values="18;26;18" dur="1.6s" repeatCount="indefinite"/>
+</ellipse>
+</svg>

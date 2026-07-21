@@ -1,0 +1,13 @@
+<app-tag-list />
+
+<mat-tab-group animationDuration="100ms">
+  <mat-tab label="Зупинки" i18n-label="@@tabs.stops">
+    <app-stop-list></app-stop-list>
+  </mat-tab>
+  <mat-tab label="Проживання" i18n-label="@@tabs.hotels">
+    <app-hotel-list></app-hotel-list>
+  </mat-tab>
+  <mat-tab label="Локації" i18n-label="@@tabs.locations">
+    <span i18n="@@tabs.locationsUnavailable">Не доступно</span>
+  </mat-tab>
+</mat-tab-group>

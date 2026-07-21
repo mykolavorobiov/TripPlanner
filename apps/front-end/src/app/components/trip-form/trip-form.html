@@ -1,0 +1,33 @@
+<mat-card appearance="outlined" class="trip-form">
+  <form class="example-container" (submit)="saveTrip($event)">
+    <mat-card-header>
+      <mat-card-title>Trip:</mat-card-title>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content>
+      <div>
+        <mat-form-field>
+          <mat-label>Trip name</mat-label>
+          <input matInput [formField]="tripForm.name" />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Trip description</mat-label>
+          <textarea matInput [formField]="tripForm.description"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        matButton="filled"
+        type="submit"
+        [disabled]="tripForm().invalid()">
+        Зберегти
+      </button>
+      <button matButton="outlined" (click)="resetForm()" type="button">
+        Скинути
+      </button>
+    </mat-card-actions>
+  </form>
+</mat-card>

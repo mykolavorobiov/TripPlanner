@@ -1,0 +1,25 @@
+<mat-chip-set aria-label="Trips">
+  @for(trip of trips();track trip.id) {
+  <mat-chip>
+    <button
+      matChipEdit
+      [disabled]="isLoadingTrips()"
+      [attr.aria-label]="'edit ' + trip.name">
+      <mat-icon>edit</mat-icon>
+    </button>
+    {{ trip.name }}
+    <button
+      matChipRemove
+      [disabled]="isLoadingTrips()"
+      appConfirmation
+      #confirmation="confirmation"
+      (click)="onDelete(trip, confirmation.confirm$, $event)"
+      [attr.aria-label]="'remove ' + trip.name">
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+
+  } @if(isLoadingTrips()) {
+  <mat-progress-bar mode="buffer"></mat-progress-bar>
+  }
+</mat-chip-set>

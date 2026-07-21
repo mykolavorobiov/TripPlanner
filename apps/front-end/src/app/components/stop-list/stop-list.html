@@ -1,0 +1,45 @@
+<div class="stop-main-actions">
+  <button matButton="filled" (click)="createStop()" i18n="@@stops.addStop">Додати зупинку</button>
+  <div class="example-action-buttons">
+    <button matButton (click)="accordion().openAll()" i18n="@@common.showAll">Показати всі</button>
+    <button matButton (click)="accordion().closeAll()" i18n="@@common.collapseAll">Згорнути всі</button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="stop-list">
+  <mat-accordion multi>
+    @for (travelStop of stops(); track $index; let idx = $index, last = $last) {
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{travelStop.where}} </mat-panel-title>
+        <mat-panel-description>
+          <mat-icon>place</mat-icon>
+          <span class="goal">{{travelStop.goal}}</span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="when">
+        <time [attr.datetime]="travelStop.datetime"
+          >{{travelStop.datetime | date: 'MMMM d, y, HH:mm'}}</time
+        >
+        @let tagName = getTagName(travelStop); @if(tagName) {
+        <mat-chip disabled>{{getTagName(travelStop)}}</mat-chip>
+        }
+      </div>
+      @if (travelStop.mapLink) {
+      <a target="_blank" [href]="travelStop.mapLink" i18n="@@stops.mapLink">Посилання на карту</a>
+      }
+      <div>{{travelStop.comment || noCommentLabel}}</div>
+      <mat-divider></mat-divider>
+      <div class="stop-actions">
+        <button matMiniFab (click)="deleteStop(travelStop)" aria-label="Видалити зупинку" i18n-aria-label="@@stops.deleteStop">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button matMiniFab extended (click)="startEditStop(travelStop)" aria-label="Редагувати зупинку" i18n-aria-label="@@stops.editStop">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

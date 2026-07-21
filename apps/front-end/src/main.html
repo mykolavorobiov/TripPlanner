@@ -1,0 +1,25 @@
+@if (hasUser()) {
+  <div class="header">
+    <div>
+      <img src="assets/logo.svg" alt="Travel Checker" i18n-alt="@@app.logoAlt" height="40">
+    </div>
+    <nav class="header-nav">
+      <a mat-icon-button routerLink="/list" routerLinkActive="nav-active" matTooltip="Список" i18n-matTooltip="@@nav.listTooltip">
+        <mat-icon>list</mat-icon>
+      </a>
+      <a mat-icon-button routerLink="/map" routerLinkActive="nav-active" matTooltip="Карта" i18n-matTooltip="@@nav.mapTooltip">
+        <mat-icon>map</mat-icon>
+      </a>
+    </nav>
+    <div class="language-switcher" aria-label="Вибір мови" i18n-aria-label="@@language.switcherLabel">
+      <a mat-button [class.active-language]="isLocale('uk')" [href]="localizedPath('uk')" hreflang="uk">UK</a>
+      <a mat-button [class.active-language]="isLocale('en')" [href]="localizedPath('en')" hreflang="en">EN</a>
+    </div>
+    <button mat-raised-button (click)="logout()" i18n="@@auth.logout">Вийти</button>
+  </div>
+  <mat-divider class="divider"></mat-divider>
+}
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>
