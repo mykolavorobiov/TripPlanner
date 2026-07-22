@@ -1,6 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable, firstValueFrom, switchMap, timer } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  firstValueFrom,
+  shareReplay,
+  startWith,
+  switchMap,
+} from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
@@ -8,12 +15,25 @@ import { AuthService } from './auth.service';
 export class ApiClient {
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
-  list$<T>(entity: string, interval = 5_000): Observable<T[]> {
-    return timer(0, interval).pipe(
-      switchMap(() =>
-        this.http.get<T[]>(`${environment.apiUrl}/${entity}`, this.options()),
-      ),
-    );
+  private readonly listStreams = new Map<string, Observable<unknown[]>>();
+  private readonly refreshSignals = new Map<string, Subject<void>>();
+
+  list$<T>(entity: string): Observable<T[]> {
+    let stream = this.listStreams.get(entity);
+    if (!stream) {
+      stream = this.refreshSignal(entity).pipe(
+        startWith(undefined),
+        switchMap(() =>
+          this.http.get<unknown[]>(
+            `${environment.apiUrl}/${entity}`,
+            this.options(),
+          ),
+        ),
+        shareReplay({ bufferSize: 1, refCount: true }),
+      );
+      this.listStreams.set(entity, stream);
+    }
+    return stream as Observable<T[]>;
   }
 
   get<T>(path: string): Promise<T> {
@@ -32,33 +52,65 @@ export class ApiClient {
     );
   }
 
-  create<T>(entity: string, body: unknown): Promise<T> {
-    return firstValueFrom(
+  async create<T>(entity: string, body: unknown): Promise<T> {
+    const created = await firstValueFrom(
       this.http.post<T>(
         `${environment.apiUrl}/${entity}`,
         body,
         this.options(),
       ),
     );
+    this.refreshRelated(entity);
+    return created;
   }
 
-  update<T>(entity: string, id: string | number, body: unknown): Promise<T> {
-    return firstValueFrom(
+  async update<T>(
+    entity: string,
+    id: string | number,
+    body: unknown,
+  ): Promise<T> {
+    const updated = await firstValueFrom(
       this.http.patch<T>(
         `${environment.apiUrl}/${entity}/${id}`,
         body,
         this.options(),
       ),
     );
+    this.refreshRelated(entity);
+    return updated;
   }
 
-  remove(entity: string, id: string | number): Promise<void> {
-    return firstValueFrom(
+  async remove(entity: string, id: string | number): Promise<void> {
+    await firstValueFrom(
       this.http.delete<void>(
         `${environment.apiUrl}/${entity}/${id}`,
         this.options(),
       ),
     );
+    this.refreshRelated(entity);
+  }
+
+  refresh(entity: string): void {
+    this.refreshSignal(entity).next();
+  }
+
+  private refreshSignal(entity: string): Subject<void> {
+    let signal = this.refreshSignals.get(entity);
+    if (!signal) {
+      signal = new Subject<void>();
+      this.refreshSignals.set(entity, signal);
+    }
+    return signal;
+  }
+
+  private refreshRelated(entity: string): void {
+    const dependencies: Record<string, string[]> = {
+      tags: ['tags', 'stops', 'hotels'],
+      stops: ['stops', 'hotels'],
+    };
+    for (const relatedEntity of dependencies[entity] ?? [entity]) {
+      this.refresh(relatedEntity);
+    }
   }
 
   private options(): { headers: HttpHeaders } {

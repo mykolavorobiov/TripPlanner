@@ -6,6 +6,7 @@ import {
   input,
   OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
@@ -27,8 +28,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StopService } from '../../services/stop.service';
 import { TagService } from '../../services/tag.service';
+import { MapLinkService } from '../../services/map-link.service';
 import {
   getCurrentPosition,
   googleMapsSearchUrl,
@@ -48,12 +51,14 @@ import type { Hotel } from '../../models/hotel';
     MatRadioModule,
     MatDatepickerModule,
     MatDialogModule,
+    MatProgressBarModule,
   ],
   templateUrl: './hotel-form.html',
   styleUrl: './hotel-form.scss',
 })
 export class HotelForm implements OnInit {
   private readonly tagsApi = inject(TagService);
+  private readonly mapLinks = inject(MapLinkService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialogRef = inject(MatDialogRef<HotelForm>);
   private readonly data = inject(MAT_DIALOG_DATA);
@@ -94,6 +99,8 @@ export class HotelForm implements OnInit {
   tags = toSignal(this.tagsApi.list$(), { initialValue: [] });
   selectedFileName = '';
   imagePreview: string | null = null;
+  readonly resolvingMapLink = signal(false);
+  private mapLinkRequestId = 0;
 
   private readonly _currentFullDate = new Date();
   private readonly _currentYear = this._currentFullDate.getFullYear();
@@ -103,7 +110,7 @@ export class HotelForm implements OnInit {
   readonly minDate = new Date(
     this._currentYear,
     this._currentMonth - 1,
-    this._currentDate
+    this._currentDate,
   );
   readonly maxDate = new Date(this._currentYear + 1, 1, 1);
 
@@ -123,7 +130,7 @@ export class HotelForm implements OnInit {
             stopId: '',
             mapLink: '',
           },
-          { emitEvent: false }
+          { emitEvent: false },
         );
         this.checkInOutForm.reset(
           {
@@ -131,18 +138,18 @@ export class HotelForm implements OnInit {
               date: this._currentFullDate,
               time: toLocalDateTimeString(this._currentFullDate).substring(
                 11,
-                16
+                16,
               ),
             },
             checkOut: {
               date: this._currentFullDate,
               time: toLocalDateTimeString(this._currentFullDate).substring(
                 11,
-                16
+                16,
               ),
             },
           },
-          { emitEvent: false }
+          { emitEvent: false },
         );
         return;
       }
@@ -160,7 +167,7 @@ export class HotelForm implements OnInit {
           stopId: hotel.stopId ?? '',
           mapLink: hotel.mapLink ?? '',
         },
-        { emitEvent: false }
+        { emitEvent: false },
       );
 
       this.checkInOutForm.reset(
@@ -169,59 +176,104 @@ export class HotelForm implements OnInit {
             date: new Date(hotel.checkIn),
             time: toLocalDateTimeString(new Date(hotel.checkIn)).substring(
               11,
-              16
+              16,
             ),
           },
           checkOut: {
             date: new Date(hotel.checkOut),
             time: toLocalDateTimeString(new Date(hotel.checkOut)).substring(
               11,
-              16
+              16,
             ),
           },
         },
-        { emitEvent: true }
+        { emitEvent: true },
       );
     });
   }
 
   async tryToGetGoogleLink(): Promise<void> {
     try {
+      this.mapLinkRequestId++;
+      this.resolvingMapLink.set(false);
       const coords = await getCurrentPosition();
       const url = googleMapsSearchUrl({ lat: coords.lat, lng: coords.lng });
       this.hotelGroup.controls.mapLink.setValue(url, { emitEvent: true });
+      this.hotelGroup.controls.mapLink.setErrors(null);
     } catch (e) {}
   }
 
+  mapLinkChanged(): void {
+    this.mapLinkRequestId++;
+    this.resolvingMapLink.set(false);
+    const control = this.hotelGroup.controls.mapLink;
+    control.setErrors(
+      control.getRawValue()?.trim() ? { mapLinkPending: true } : null,
+    );
+  }
+
+  async resolveMapLink(): Promise<void> {
+    const control = this.hotelGroup.controls.mapLink;
+    const url = control.getRawValue()?.trim() ?? '';
+    if (!url) {
+      control.setErrors(null);
+      return;
+    }
+    if (!this.mapLinks.isGoogleMapsUrl(url)) {
+      control.setErrors({ mapLinkResolution: true });
+      return;
+    }
+
+    const requestId = ++this.mapLinkRequestId;
+    this.resolvingMapLink.set(true);
+    control.setErrors({ mapLinkPending: true });
+    try {
+      const resolved = await this.mapLinks.resolveGoogleMapsLink(url);
+      if (requestId !== this.mapLinkRequestId) return;
+      control.setValue(resolved.finalUrl, { emitEvent: true });
+      control.setErrors(null);
+    } catch {
+      if (requestId === this.mapLinkRequestId) {
+        control.setErrors({ mapLinkResolution: true });
+      }
+    } finally {
+      if (requestId === this.mapLinkRequestId) {
+        this.resolvingMapLink.set(false);
+      }
+    }
+  }
+
   ngOnInit() {
-    this.checkInOutForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ checkIn, checkOut }) => {
-      if (checkIn?.date && checkIn.time) {
-        const [hours, minutes] = checkIn.time.split(':').map(Number);
-        const result = new Date(checkIn.date);
+    this.checkInOutForm.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ checkIn, checkOut }) => {
+        if (checkIn?.date && checkIn.time) {
+          const [hours, minutes] = checkIn.time.split(':').map(Number);
+          const result = new Date(checkIn.date);
 
-        result.setHours(hours);
-        result.setMinutes(minutes);
-        result.setSeconds(0);
-        result.setMilliseconds(0);
-        this.hotelGroup.controls.checkIn.setValue(
-          toLocalDateTimeString(new Date(result)),
-          { emitEvent: true }
-        );
-      }
-      if (checkOut?.date && checkOut.time) {
-        const [hours, minutes] = checkOut.time.split(':').map(Number);
-        const result = new Date(checkOut.date);
+          result.setHours(hours);
+          result.setMinutes(minutes);
+          result.setSeconds(0);
+          result.setMilliseconds(0);
+          this.hotelGroup.controls.checkIn.setValue(
+            toLocalDateTimeString(new Date(result)),
+            { emitEvent: true },
+          );
+        }
+        if (checkOut?.date && checkOut.time) {
+          const [hours, minutes] = checkOut.time.split(':').map(Number);
+          const result = new Date(checkOut.date);
 
-        result.setHours(hours);
-        result.setMinutes(minutes);
-        result.setSeconds(0);
-        result.setMilliseconds(0);
-        this.hotelGroup.controls.checkOut.setValue(
-          toLocalDateTimeString(new Date(result)),
-          { emitEvent: true }
-        );
-      }
-    });
+          result.setHours(hours);
+          result.setMinutes(minutes);
+          result.setSeconds(0);
+          result.setMilliseconds(0);
+          this.hotelGroup.controls.checkOut.setValue(
+            toLocalDateTimeString(new Date(result)),
+            { emitEvent: true },
+          );
+        }
+      });
   }
 
   onSubmit(): void {
@@ -272,7 +324,7 @@ export class HotelForm implements OnInit {
         {
           imageSrc: result,
         },
-        { emitEvent: true }
+        { emitEvent: true },
       );
 
       this.hotelGroup.get('imageSrc')?.markAsDirty();

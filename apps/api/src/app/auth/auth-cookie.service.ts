@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import type { Request, Response } from 'express';
+import type { CookieOptions, Request, Response } from 'express';
 
 const refreshCookie = 'trip_planner_refresh_token';
 const refreshPath = '/api/auth/refresh';
@@ -22,7 +22,7 @@ export class AuthCookieService {
     response.cookie(refreshCookie, token, {
       httpOnly: true,
       secure: this.config.get('NODE_ENV') === 'production',
-      sameSite: 'strict',
+      sameSite: this.sameSite,
       path: refreshPath,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -32,8 +32,12 @@ export class AuthCookieService {
     response.clearCookie(refreshCookie, {
       httpOnly: true,
       secure: this.config.get('NODE_ENV') === 'production',
-      sameSite: 'strict',
+      sameSite: this.sameSite,
       path: refreshPath,
     });
+  }
+
+  private get sameSite(): CookieOptions['sameSite'] {
+    return this.config.get('COOKIE_SAME_SITE') === 'none' ? 'none' : 'strict';
   }
 }

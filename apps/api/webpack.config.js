@@ -15,7 +15,14 @@ module.exports = {
       compiler: 'tsc',
       main: './src/main.ts',
       tsConfig: './tsconfig.app.json',
-      assets: ['./src/assets'],
+      assets: [
+        './src/assets',
+        {
+          input: './src/app/map-links/worker',
+          glob: '*.worker.js',
+          output: './workers/map-links',
+        },
+      ],
       optimization: false,
       outputHashing: 'none',
       generatePackageJson: true,

@@ -48,6 +48,12 @@
           "localize": ["en-US"]
         },
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/front-end/src/environments/environment.ts",
+              "with": "apps/front-end/src/environments/environment.production.ts"
+            }
+          ],
           "extractLicenses": true,
           "localize": true,
           "namedChunks": false,

@@ -6,6 +6,7 @@
     "start": "nx serve front-end",
     "start:api": "nx serve api",
     "build": "nx build front-end",
+    "build:front-end:render": "node tools/configure-frontend-environment.mjs && nx build front-end",
     "build:api": "nx build api",
     "build:i18n": "nx build front-end --configuration=production",
     "extract-i18n": "nx extract-i18n front-end",

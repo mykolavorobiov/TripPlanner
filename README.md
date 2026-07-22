@@ -114,7 +114,36 @@ nx.json        Nx workspace configuration
 package.json   Shared dependencies and commands
 ```
 
-`SupabaseModule` exports a request-scoped `SupabaseClient` that API providers inject with the `SUPABASE_CLIENT` token. The frontend must not import the Supabase SDK or access Supabase directly. Authentication is proxied through `/api/auth/*`. Each feature has its own authenticated REST controller: `/api/hotels`, `/api/stops`, `/api/tags`, `/api/map-points`, `/api/routes`, and `/api/trips`. The frontend keeps the access token in memory and sends it to the API as a bearer token. The refresh token is stored only in an HttpOnly, SameSite cookie scoped to `/api/auth/refresh`; it is secure-only in production. Entity lists refresh through API polling.
+`SupabaseModule` exports a request-scoped `SupabaseClient` that API providers inject with the `SUPABASE_CLIENT` token. The frontend must not import the Supabase SDK or access Supabase directly. Authentication is proxied through `/api/auth/*`. Each feature has its own authenticated REST controller: `/api/hotels`, `/api/stops`, `/api/tags`, `/api/map-points`, `/api/routes`, and `/api/trips`. The frontend keeps the access token in memory and sends it to the API as a bearer token. The refresh token is stored only in an HttpOnly, SameSite cookie scoped to `/api/auth/refresh`; it is secure-only in production. Entity lists refresh after successful create, update, and delete operations.
+
+## Deploy to Render from GitHub Actions
+
+The repository includes `render.yaml` for a Render Static Site and Web Service,
+plus `.github/workflows/deploy-render.yml` for verification and deployment.
+
+1. Push the repository to GitHub.
+2. In Render, create a new Blueprint from the repository. Render reads
+   `render.yaml` and creates `trip-planner-api` and `trip-planner-web`.
+3. Enter the Blueprint environment values when prompted:
+   - API: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_ORIGIN`.
+   - Static site: `API_URL`, including the `/api` suffix.
+4. Use the final Render URLs for the cross references:
+   - `FRONTEND_ORIGIN=https://<frontend-service>.onrender.com`
+   - `API_URL=https://<api-service>.onrender.com/api`
+5. Generate a deploy hook from each service's Render **Settings** page and add
+   them as GitHub Actions repository secrets:
+   - `RENDER_API_DEPLOY_HOOK_URL`
+   - `RENDER_FRONTEND_DEPLOY_HOOK_URL`
+6. Add the deployed frontend callback URLs to the Supabase authentication
+   redirect allow list.
+
+Pull requests run builds and API tests without deploying. Pushes to `main`
+deploy the exact verified commit through the two Render deploy hooks. Render
+auto-deploy is disabled in the Blueprint to prevent duplicate deployments.
+
+Separate `onrender.com` subdomains require `SameSite=None` for the refresh
+cookie. The Blueprint configures this together with `Secure` and `HttpOnly`;
+local development retains `SameSite=Strict`.
 
 ## Current state
 

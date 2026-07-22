@@ -1,4 +1,12 @@
-import { Component, DestroyRef, effect, inject, input, output } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 
 import {
   FormControl,
@@ -13,18 +21,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { combineLatest, startWith } from 'rxjs';
 import { Stop } from '../../models/stop';
 import { TagService } from '../../services/tag.service';
-import { getCurrentPosition, googleMapsSearchUrl, toLocalDateTimeString } from '../../utils';
-
-
-
-
-
+import { MapLinkService } from '../../services/map-link.service';
+import {
+  getCurrentPosition,
+  googleMapsSearchUrl,
+  toLocalDateTimeString,
+} from '../../utils';
 
 @Component({
   selector: 'app-stop-form',
@@ -37,13 +50,15 @@ import { getCurrentPosition, googleMapsSearchUrl, toLocalDateTimeString } from '
     MatIconModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressBarModule,
   ],
   templateUrl: './stop-form.html',
   styleUrl: './stop-form.scss',
 })
 export class StopForm {
   private readonly tagsApi = inject(TagService);
+  private readonly mapLinks = inject(MapLinkService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialogRef = inject(MatDialogRef<StopForm>);
   private readonly data = inject(MAT_DIALOG_DATA);
@@ -54,8 +69,10 @@ export class StopForm {
     time: new FormControl(''),
     goal: new FormControl('', [Validators.required]),
     mapLink: new FormControl(''),
+    lat: new FormControl<number | null>(null),
+    lng: new FormControl<number | null>(null),
     comment: new FormControl(''),
-    tagId: new FormControl('')
+    tagId: new FormControl(''),
   });
   datetime = new FormControl();
   time = new FormControl();
@@ -63,39 +80,53 @@ export class StopForm {
   addStop = output<Stop>();
   stop = input<Stop | null>(this.data?.stop ?? null);
   tags = toSignal(this.tagsApi.list$(), { initialValue: [] });
+  readonly resolvingMapLink = signal(false);
+  private mapLinkRequestId = 0;
 
   private readonly _currentYear = new Date().getFullYear();
   private readonly _currentDate = new Date().getDate();
   private readonly _currentMonth = new Date().getMonth();
-  readonly minDate = new Date(this._currentYear, this._currentMonth - 1, this._currentDate);
+  readonly minDate = new Date(
+    this._currentYear,
+    this._currentMonth - 1,
+    this._currentDate,
+  );
   readonly maxDate = new Date(this._currentYear + 1, 1, 1);
-
 
   constructor() {
     effect(() => {
       const s = this.stop();
       if (!s) {
-        this.eventGroup.reset({
-          where: '',
-          datetime: '',
-          goal: '',
-          mapLink: '',
-          comment: '',
-          tagId: '',
-          time: '15:00'
-        }, { emitEvent: false });
+        this.eventGroup.reset(
+          {
+            where: '',
+            datetime: '',
+            goal: '',
+            mapLink: '',
+            lat: null,
+            lng: null,
+            comment: '',
+            tagId: '',
+            time: '15:00',
+          },
+          { emitEvent: false },
+        );
         return;
       }
 
-
-      this.eventGroup.patchValue({
-        where: s.where ?? '',
-        datetime: s.datetime ?? '',
-        goal: s.goal ?? '',
-        mapLink: s.mapLink ?? '',
-        comment: s.comment ?? '',
-        tagId: s.tagIds?.[0] ?? ''
-      }, { emitEvent: false });
+      this.eventGroup.patchValue(
+        {
+          where: s.where ?? '',
+          datetime: s.datetime ?? '',
+          goal: s.goal ?? '',
+          mapLink: s.mapLink ?? '',
+          lat: s.lat ?? null,
+          lng: s.lng ?? null,
+          comment: s.comment ?? '',
+          tagId: s.tagIds?.[0] ?? '',
+        },
+        { emitEvent: false },
+      );
 
       if (s.datetime) {
         const currentDate = new Date(s.datetime);
@@ -103,35 +134,89 @@ export class StopForm {
         this.datetime.setValue(currentDate, { emitEvent: true });
         this.time.setValue(time, { emitEvent: true });
       }
-    })
+    });
   }
 
   async tryToGetGoogleLink(): Promise<void> {
     try {
+      this.mapLinkRequestId++;
+      this.resolvingMapLink.set(false);
       const coords = await getCurrentPosition();
       const url = googleMapsSearchUrl({ lat: coords.lat, lng: coords.lng });
-      this.eventGroup.controls.mapLink.setValue(url, { emitEvent: true })
-    } catch (e) { }
+      this.eventGroup.controls.mapLink.setValue(url, { emitEvent: true });
+      this.eventGroup.controls.mapLink.setErrors(null);
+      this.eventGroup.controls.lat.setValue(coords.lat);
+      this.eventGroup.controls.lng.setValue(coords.lng);
+    } catch (e) {}
+  }
+
+  mapLinkChanged(): void {
+    this.mapLinkRequestId++;
+    this.resolvingMapLink.set(false);
+    const control = this.eventGroup.controls.mapLink;
+    control.setErrors(
+      control.getRawValue()?.trim() ? { mapLinkPending: true } : null,
+    );
+    this.eventGroup.controls.lat.setValue(null);
+    this.eventGroup.controls.lng.setValue(null);
+  }
+
+  async resolveMapLink(): Promise<void> {
+    const control = this.eventGroup.controls.mapLink;
+    const url = control.getRawValue()?.trim() ?? '';
+    if (!url) {
+      control.setErrors(null);
+      return;
+    }
+    if (!this.mapLinks.isGoogleMapsUrl(url)) {
+      control.setErrors({ mapLinkResolution: true });
+      return;
+    }
+
+    const requestId = ++this.mapLinkRequestId;
+    this.resolvingMapLink.set(true);
+    control.setErrors({ mapLinkPending: true });
+    try {
+      const resolved = await this.mapLinks.resolveGoogleMapsLink(url);
+      if (requestId !== this.mapLinkRequestId) return;
+      control.setValue(resolved.finalUrl, { emitEvent: true });
+      control.setErrors(null);
+      this.eventGroup.controls.lat.setValue(resolved.lat);
+      this.eventGroup.controls.lng.setValue(resolved.lng);
+    } catch {
+      if (requestId === this.mapLinkRequestId) {
+        control.setErrors({ mapLinkResolution: true });
+      }
+    } finally {
+      if (requestId === this.mapLinkRequestId) {
+        this.resolvingMapLink.set(false);
+      }
+    }
   }
 
   ngOnInit() {
     combineLatest({
       time: this.time.valueChanges.pipe(startWith(null)),
       date: this.datetime.valueChanges.pipe(startWith(null)),
-    }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(({ time, date }) => {
-      if (time && date) {
-        const [hours, minutes] = time.split(':').map(Number);
-        const result = new Date(date);
-        result.setHours(hours);
-        result.setMinutes(minutes);
-        result.setSeconds(0);
-        result.setMilliseconds(0);
-        this.eventGroup.controls.datetime.setValue(toLocalDateTimeString(new Date(result)), { emitEvent: true });
-        this.eventGroup.markAsDirty();
-        this.eventGroup.markAsPristine();
-        this.eventGroup.markAsTouched();
-      }
-    });
+    })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(({ time, date }) => {
+        if (time && date) {
+          const [hours, minutes] = time.split(':').map(Number);
+          const result = new Date(date);
+          result.setHours(hours);
+          result.setMinutes(minutes);
+          result.setSeconds(0);
+          result.setMilliseconds(0);
+          this.eventGroup.controls.datetime.setValue(
+            toLocalDateTimeString(new Date(result)),
+            { emitEvent: true },
+          );
+          this.eventGroup.markAsDirty();
+          this.eventGroup.markAsPristine();
+          this.eventGroup.markAsTouched();
+        }
+      });
   }
 
   onSubmit(): void {
@@ -141,8 +226,10 @@ export class StopForm {
       datetime: this.eventGroup.controls.datetime.getRawValue(),
       goal: this.eventGroup.controls.goal.getRawValue(),
       mapLink: this.eventGroup.controls.mapLink.getRawValue(),
+      lat: this.eventGroup.controls.lat.getRawValue(),
+      lng: this.eventGroup.controls.lng.getRawValue(),
       comment: this.eventGroup.controls.comment.getRawValue(),
-      tagIds: [this.eventGroup.controls.tagId.getRawValue()].filter(Boolean)
+      tagIds: [this.eventGroup.controls.tagId.getRawValue()].filter(Boolean),
     } as Stop;
     this.addStop.emit(_stop);
     this.save(_stop);

@@ -1,0 +1,44 @@
+services:
+  - type: web
+    name: trip-planner-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    autoDeployTrigger: off
+    buildCommand: npm ci && npm run build:api
+    startCommand: node dist/apps/api/main.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: COOKIE_SAME_SITE
+        value: none
+
+  - type: web
+    name: trip-planner-web
+    runtime: static
+    plan: free
+    autoDeployTrigger: off
+    buildCommand: npm ci && npm run build:front-end:render
+    staticPublishPath: ./dist/apps/front-end/browser
+    envVars:
+      - key: API_URL
+        sync: false
+    routes:
+      - type: redirect
+        source: /
+        destination: /uk/
+      - type: rewrite
+        source: /uk/*
+        destination: /uk/index.html
+      - type: rewrite
+        source: /en/*
+        destination: /en/index.html
+      - type: rewrite
+        source: /*
+        destination: /uk/index.html

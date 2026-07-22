@@ -6,7 +6,11 @@
     <form class="hotel-form" [formGroup]="hotelGroup" (ngSubmit)="onSubmit()">
       <div class="tag-scroll">
         <span id="tab-label" i18n="@@tags.singleLabel">Мітка:</span>
-        <mat-radio-group aria-label="Обрати мітку" i18n-aria-label="@@tags.selectTag" formControlName="tagId">
+        <mat-radio-group
+          aria-label="Обрати мітку"
+          i18n-aria-label="@@tags.selectTag"
+          formControlName="tagId"
+        >
           @for (tag of tags(); track tag.id) {
           <mat-radio-button [value]="tag.id">{{tag.name}}</mat-radio-button>
           }
@@ -31,14 +35,18 @@
               [matDatepicker]="checkInPicker"
               [min]="minDate"
               [max]="maxDate"
-              formControlName="date" />
+              formControlName="date"
+            />
             <mat-datepicker-toggle
               matIconSuffix
-              [for]="checkInPicker"></mat-datepicker-toggle>
+              [for]="checkInPicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #checkInPicker touchUi></mat-datepicker>
 
             @if (checkInOutForm.get('checkIn.date')?.hasError('required')) {
-            <mat-error i18n="@@hotels.checkInDateRequired">Вкажіть дату заселення</mat-error>
+            <mat-error i18n="@@hotels.checkInDateRequired"
+              >Вкажіть дату заселення</mat-error
+            >
             }
           </mat-form-field>
 
@@ -47,7 +55,9 @@
             <input matInput type="time" formControlName="time" />
 
             @if (checkInOutForm.get('checkIn.time')?.hasError('required')) {
-            <mat-error i18n="@@hotels.checkInTimeRequired">Вкажіть час заселення</mat-error>
+            <mat-error i18n="@@hotels.checkInTimeRequired"
+              >Вкажіть час заселення</mat-error
+            >
             }
           </mat-form-field>
         </div>
@@ -60,14 +70,18 @@
               [matDatepicker]="checkOutPicker"
               [min]="minDate"
               [max]="maxDate"
-              formControlName="date" />
+              formControlName="date"
+            />
             <mat-datepicker-toggle
               matIconSuffix
-              [for]="checkOutPicker"></mat-datepicker-toggle>
+              [for]="checkOutPicker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #checkOutPicker touchUi></mat-datepicker>
 
             @if (checkInOutForm.get('checkOut.date')?.hasError('required')) {
-            <mat-error i18n="@@hotels.checkOutDateRequired">Вкажіть дату виселення</mat-error>
+            <mat-error i18n="@@hotels.checkOutDateRequired"
+              >Вкажіть дату виселення</mat-error
+            >
             }
           </mat-form-field>
 
@@ -76,7 +90,9 @@
             <input matInput type="time" formControlName="time" />
 
             @if (checkInOutForm.get('checkOut.time')?.hasError('required')) {
-            <mat-error i18n="@@hotels.checkOutTimeRequired">Вкажіть час виселення</mat-error>
+            <mat-error i18n="@@hotels.checkOutTimeRequired"
+              >Вкажіть час виселення</mat-error
+            >
             }
           </mat-form-field>
         </div>
@@ -89,17 +105,33 @@
 
       <mat-form-field>
         <mat-label i18n="@@common.mapLink">Лінк на карту</mat-label>
-        <input matInput id="mapLink" type="text" formControlName="mapLink" />
+        <input
+          matInput
+          id="mapLink"
+          type="text"
+          formControlName="mapLink"
+          (input)="mapLinkChanged()"
+          (blur)="resolveMapLink()"
+        />
         <button
           matSuffix
           type="button"
           matMiniFab="filled"
           (click)="tryToGetGoogleLink()"
           aria-label="Заповнити посилання на карту поточною локацією"
-          i18n-aria-label="@@common.useCurrentLocation">
+          i18n-aria-label="@@common.useCurrentLocation"
+        >
           <mat-icon aria-hidden="true" fontIcon="map"></mat-icon>
         </button>
+        @if (hotelGroup.controls.mapLink.hasError('mapLinkResolution')) {
+        <mat-error i18n="@@common.mapLinkResolutionError"
+          >Не вдалося обробити посилання Google Maps</mat-error
+        >
+        }
       </mat-form-field>
+      @if (resolvingMapLink()) {
+      <mat-progress-bar mode="indeterminate" />
+      }
 
       <mat-form-field>
         <mat-label i18n="@@common.comment">Довільний коментар</mat-label>
@@ -118,7 +150,17 @@
     </form>
   </mat-card-content>
   <mat-dialog-actions>
-    <button [disabled]="hotelGroup.invalid" type="button" (click)="onSubmit()" matButton="filled" i18n="@@common.save">Зберегти</button>
-    <button matButton type="button" mat-dialog-close i18n="@@common.cancel">Скасувати</button>
+    <button
+      [disabled]="hotelGroup.invalid || resolvingMapLink()"
+      type="button"
+      (click)="onSubmit()"
+      matButton="filled"
+      i18n="@@common.save"
+    >
+      Зберегти
+    </button>
+    <button matButton type="button" mat-dialog-close i18n="@@common.cancel">
+      Скасувати
+    </button>
   </mat-dialog-actions>
 </mat-card>
