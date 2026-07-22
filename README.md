@@ -123,7 +123,8 @@ plus `.github/workflows/deploy-render.yml` for verification and deployment.
 
 1. Push the repository to GitHub.
 2. In Render, create a new Blueprint from the repository. Render reads
-   `render.yaml` and creates `trip-planner-api` and `trip-planner-web`.
+   `render.yaml` and connects the existing `TripPlanner-BE` and
+   `TripPlanner-FE` services in the `TravelTracker / Production` environment.
 3. Enter the Blueprint environment values when prompted:
    - API: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_ORIGIN`.
    - Static site: `API_URL`, including the `/api` suffix.
