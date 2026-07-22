@@ -25,6 +25,7 @@ projects:
                 sync: false
               - key: COOKIE_SAME_SITE
                 value: none
+            autoDeployTrigger: "off"
 
           - type: web
             name: TripPlanner-FE
@@ -39,19 +40,14 @@ projects:
             routes:
               - type: redirect
                 source: /
-                destination: /uk/
-              - type: redirect
-                source: /en
-                destination: /en/
-              - type: redirect
-                source: /uk
-                destination: /uk/
-              - type: rewrite
-                source: /uk/*
-                destination: /uk/index.html
+                destination: /uk
               - type: rewrite
                 source: /en/*
                 destination: /en/index.html
               - type: rewrite
+                source: /uk/*
+                destination: /uk/index.html
+              - type: rewrite
                 source: /*
                 destination: /uk/index.html
+            autoDeployTrigger: "off"
