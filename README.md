@@ -128,9 +128,14 @@ plus `.github/workflows/deploy-render.yml` for verification and deployment.
 3. Enter the Blueprint environment values when prompted:
    - API: `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, and `FRONTEND_ORIGIN`.
    - Static site: `API_URL`, including the `/api` suffix.
-4. Use the final Render URLs for the cross references:
-   - `FRONTEND_ORIGIN=https://<frontend-service>.onrender.com`
-   - `API_URL=https://<api-service>.onrender.com/api`
+
+The Render build commands use `npm ci --include=dev` because Nx, Webpack, and
+the Angular compiler are build-time development dependencies. Do not replace
+this with a production-only dependency installation. 4. Use the final Render URLs for the cross references:
+
+- `FRONTEND_ORIGIN=https://<frontend-service>.onrender.com`
+- `API_URL=https://<api-service>.onrender.com/api`
+
 5. Generate a deploy hook from each service's Render **Settings** page and add
    them as GitHub Actions repository secrets:
    - `RENDER_API_DEPLOY_HOOK_URL`

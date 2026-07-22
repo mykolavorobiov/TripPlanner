@@ -12,7 +12,7 @@ projects:
             plan: free
             region: oregon
             autoDeployTrigger: off
-            buildCommand: npm ci && npm run build:api
+            buildCommand: npm ci --include=dev && npm run build:api
             startCommand: node dist/apps/api/main.js
             envVars:
               - key: NODE_ENV
@@ -25,14 +25,12 @@ projects:
                 sync: false
               - key: COOKIE_SAME_SITE
                 value: none
-            autoDeployTrigger: "off"
 
           - type: web
             name: TripPlanner-FE
             runtime: static
             repo: https://github.com/mykolavorobiov/TripPlanner
-            autoDeployTrigger: off
-            buildCommand: npm ci && npm run build:front-end:render
+            buildCommand: npm ci --include=dev && npm run build:front-end:render
             staticPublishPath: ./dist/apps/front-end/browser
             envVars:
               - key: API_URL
@@ -50,4 +48,4 @@ projects:
               - type: rewrite
                 source: /*
                 destination: /uk/index.html
-            autoDeployTrigger: "off"
+            autoDeployTrigger: 'off'
